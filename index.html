@@ -243,7 +243,7 @@
             <div class="input-section">
                 <h2>📝 Input Data Baru</h2>
                 <div id="successMessage" class="success-message">
-                    Data berhasil disimpan! ✅
+                    Data berhasil disimpan ke Google Sheets! ✅
                 </div>
                 
                 <form id="dataForm">
@@ -352,7 +352,10 @@
                 timestamp: new Date().toLocaleString('id-ID')
             };
             
-            // Simpan ke "database"
+            // Simpan ke Google Sheets
+            saveToGoogleSheets(newData);
+            
+            // Simpan ke local storage (backup)
             dataStorage.unshift(newData);
             localStorage.setItem('websiteData', JSON.stringify(dataStorage));
             
@@ -365,6 +368,28 @@
             // Update dashboard
             updateDashboard();
         });
+
+        // Fungsi untuk menyimpan ke Google Sheets
+        async function saveToGoogleSheets(data) {
+            const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyb3arkRHmeBo2N_IvcSwH-L-vORnbOTQNuI5fsC8bXoOy0p71l1FJW6VVp_0QUexGipw/exec';
+            
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                console.log('Data berhasil disimpan ke Google Sheets');
+                
+            } catch (error) {
+                console.error('Error menyimpan ke Google Sheets:', error);
+                // Data tetap tersimpan di local storage sebagai backup
+            }
+        }
 
         function showSuccessMessage() {
             const message = document.getElementById('successMessage');
