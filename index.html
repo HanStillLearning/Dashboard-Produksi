@@ -3,81 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Form Input Produksi</title>
+  <title>Website dengan Form Produksi</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f0f2f5; }
+    header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; text-align: center; font-size: 1.8em; font-weight: 600; }
+    main { padding: 20px; max-width: 900px; margin: 0 auto; }
+    iframe { width: 100%; height: 700px; border: none; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+  </style>
 </head>
 <body>
-  <h2>Input Data Produksi</h2>
-  <form id="productionForm">
-    <label>Nama Produk:<br><input type="text" name="namaProduk" required></label><br><br>
-    <label>Kode Produk:<br><input type="text" name="kodeProduk" required></label><br><br>
-    <label>Line Produksi:<br>
-      <select name="lineProduksi" required>
-        <option value="">--Pilih--</option>
-        <option value="Line 1">Line 1</option>
-        <option value="Line 2">Line 2</option>
-        <option value="Line 3">Line 3</option>
-        <option value="Line 4">Line 4</option>
-        <option value="Line 5">Line 5</option>
-        <option value="Line 6">Line 6</option>
-        <option value="Line 7">Line 7</option>
-        <option value="Line 8">Line 8</option>
-      </select>
-    </label><br><br>
-    <label>Shift:<br>
-      <select name="shift" required>
-        <option value="">--Pilih--</option>
-        <option value="Shift 1">Shift 1</option>
-        <option value="Shift 2">Shift 2</option>
-        <option value="Shift 3">Shift 3</option>
-      </select>
-    </label><br><br>
-    <label>Quantity:<br><input type="number" name="quantity" min="1" required></label><br><br>
-    <label>Satuan:<br>
-      <select name="satuan" required>
-        <option value="">--Pilih--</option>
-        <option value="Pcs">Pcs</option>
-        <option value="Pallet">Pallet</option>
-        <option value="Box">Box</option>
-        <option value="Slop">Slop</option>
-      </select>
-    </label><br><br>
-    <label>Tanggal Produksi:<br><input type="date" name="tanggalProduksi" required></label><br><br>
-    <label>Nama Line Leader:<br><input type="text" name="namaLineLeader" required></label><br><br>
-
-    <button type="submit">Simpan Data</button>
-  </form>
-
-  <script>
-    document.getElementById('productionForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      const formData = new FormData(this);
-      const params = new URLSearchParams();
-
-      for (const pair of formData.entries()) {
-        params.append(pair[0], pair[1]);
-      }
-
-      const GAS_URL = 'https://script.google.com/macros/s/AKfycbzvq-6aZwS3OD7TtjrQc1ZiK3oxvYl2DBaqCryAojfK6HEfcSaNLBbwwZFYvKAlFyHYGQ/exec'; // Ganti dengan URL Web App GAS kamu
-
-      fetch(GAS_URL + '?' + params.toString())
-        .then(response => response.json())
-        .then(data => {
-          if (data.status === 'success') {
-            alert('Data berhasil disimpan!');
-            this.reset();
-          } else {
-            alert('Gagal menyimpan data: ' + (data.message || 'Unknown error'));
-          }
-        })
-        .catch(error => alert('Error: ' + error.message));
-    });
-
-    // Set tanggal hari ini sebagai default
-    window.onload = () => {
-      const tanggalInput = document.querySelector('input[name="tanggalProduksi"]');
-      tanggalInput.valueAsDate = new Date();
-    };
-  </script>
+  <header>
+    Dashboard Produksi
+  </header>
+  <main>
+    <h2>Form Input Data Produksi</h2>
+    <iframe src="https://script.google.com/macros/s/AKfycbwwDpY5ALq95qYlEr4nZ4OzrJK-wWH6ocHqGJI5i_j2g_-7hg9ECyfFnkVCOoXl0Dmiaw/exec" title="Form Input Produksi"></iframe>
+  </main>
 </body>
 </html>
